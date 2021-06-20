@@ -4,6 +4,8 @@ import {
   Injectable,
   NotFoundException
 } from '@nestjs/common';
+import { CreateCoffeeDto } from './dto/create-coffee.dto';
+import { UpdateCoffeeDto } from './dto/update-coffee.dto';
 
 import { Coffee } from './entities/coffee.entity';
 
@@ -33,22 +35,29 @@ export class CoffeesService {
     return coffee;
   }
 
-  create(updateCoffeDto: any): Coffee {
-    updateCoffeDto.id = this.coffees.length + 1;
-    this.coffees.push(updateCoffeDto);
-    return updateCoffeDto;
+  create(updateCoffeDto: CreateCoffeeDto): Coffee {
+    const coffeeId = this.coffees.length + 1;
+    this.coffees.push({ ...updateCoffeDto, id: coffeeId });
+    return this.coffees.find((coffee) => coffee.id === coffeeId);
   }
 
   update(id: string, updateCoffeDto: any): Coffee {
+    console.log(updateCoffeDto instanceof UpdateCoffeeDto);
     // const existingCoffee = this.findOne(id);
     const coffeeIndex = this.coffees.findIndex((coffee) => coffee.id === +id);
-    console.log('id', id);
-    console.log('updateCoffeDto', updateCoffeDto);
 
     if (coffeeIndex >= 0) {
-      this.coffees[coffeeIndex].name = updateCoffeDto.name;
-      this.coffees[coffeeIndex].brand = updateCoffeDto.brand;
-      this.coffees[coffeeIndex].flavors = updateCoffeDto.flavors;
+      if (updateCoffeDto.name) {
+        this.coffees[coffeeIndex].name = updateCoffeDto.name;
+      }
+
+      if (updateCoffeDto.brand) {
+        this.coffees[coffeeIndex].brand = updateCoffeDto.brand;
+      }
+
+      if (updateCoffeDto.flavors) {
+        this.coffees[coffeeIndex].flavors = updateCoffeDto.flavors;
+      }
 
       return this.coffees[coffeeIndex];
     }
