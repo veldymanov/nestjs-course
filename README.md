@@ -29,7 +29,13 @@
 ## Installation
 
 ```bash
-$ npm install
+$ nvm list
+$ nvm list available
+$ nvm install 16.3.0
+$ nvm use 16.3.0
+
+$ npm i -g @nestjs/latest
+$ nest new
 ```
 
 ## Running the app
@@ -43,6 +49,25 @@ $ npm run start:dev
 
 # production mode
 $ npm run start:prod
+```
+
+## Validation
+
+```bash
+$ npm i class-validator class-transformer
+```
+
+## PostgreSQL
+
+Install Docker
+Install Docker Compose
+
+```bash
+$ docker-compose up -d
+$ docker-compose down
+$ docker ps
+$ docker inspect afa3a614c7ed | gzep IPAddress
+
 ```
 
 ## Test
