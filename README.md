@@ -67,7 +67,22 @@ $ docker-compose up -d
 $ docker-compose down
 $ docker ps
 $ docker inspect afa3a614c7ed | gzep IPAddress
+```
 
+## Migration
+
+```bash
+$ npx typeorm migration:create -n CoffeeRefactor
+// Define up and down methods in migration file (1624546035942-CoffeeRefactor.ts)
+$ npm run build
+$ npx typeorm migration:run
+$ npx typeorm migration:revert
+
+// Let TypeOrm generate migrations (for you)
+$ npx typeorm migration:generate -n SchemaSync
+$ npm run build
+$ npx typeorm migration:run
+$ npx typeorm migration:revert
 ```
 
 ## Test

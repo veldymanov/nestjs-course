@@ -8,6 +8,7 @@ import {
   Param,
   Patch,
   Post,
+  Put,
   Query,
   Res,
 } from '@nestjs/common';
@@ -25,6 +26,15 @@ export class CoffeesController {
   expressResp(@Res() response) {
     response.status(200).send(['this', 'is', 'express']);
   }
+
+  @Put('recommend/:id')
+  async recommendCoffee(@Param('id') id: string): Promise<void> {
+    return await this.coffesService.recommendCoffee(id);
+  }
+
+  /**
+   * CRUD
+   */
 
   @Get()
   async findAll(
@@ -46,10 +56,8 @@ export class CoffeesController {
 
   @Patch(':id')
   async update(
-    @Param('id')
-    id: string,
-    @Body()
-    updateCoffeeDto: UpdateCoffeeDto,
+    @Param('id') id: string,
+    @Body() updateCoffeeDto: UpdateCoffeeDto,
   ): Promise<Coffee> {
     return await this.coffesService.update(id, updateCoffeeDto);
   }
