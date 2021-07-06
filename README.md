@@ -57,16 +57,36 @@ $ npm run start:prod
 $ npm i class-validator class-transformer
 ```
 
-## PostgreSQL
-
-Install Docker
-Install Docker Compose
-
+## Docker-Compose
 ```bash
-$ docker-compose up -d
+$ docker-compose up
+$ docker-compose up --build -V
 $ docker-compose down
 $ docker ps
 $ docker inspect afa3a614c7ed | gzep IPAddress
+
+$ docker volume ls
+$ docker-compose down
+$ docker rm -f $(docker ps -a -q)
+$ docker volume rm $(docker volume ls -q)
+$ docker-compose up
+```
+
+## Docker
+```bash
+# Docker image digest
+# FROM node:lts-alpine@sha256:b2da3316acdc2bec442190a1fe10dc094e7ba4121d029cb32075ff59bb27390a
+$ docker pull node:lts-alpine
+$ docker images --digests
+
+# The -t option is for giving our image a name, i.e., tagging it.
+$ docker build -t nestjs-course .
+# runimage:
+$ docker run -p 3000:3000 nestjs-course
+$ docker images
+
+# Remove image
+$ docker rmi <your-image-id>
 ```
 
 ## Migration
