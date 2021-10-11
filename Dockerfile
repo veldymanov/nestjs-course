@@ -14,7 +14,6 @@ COPY package*.json ./
 # install only dependecies
 RUN npm install --only=production
 COPY . .
-
 COPY --from=development /usr/src/app/dist ./dist
 
 CMD ["node", "dist/main"]

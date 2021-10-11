@@ -24,6 +24,11 @@ export class CoffeesController {
 
   @Get('express')
   expressResp(@Res() response) {
+    /**
+     * @Res provides full controll over the response object, but there are disadvantages:
+     * - lose compatability with Nest features which depend on Nest standard response handeling (interceptors and @HttpCode);
+     * - lose compatability with Mock object
+     */
     response.status(200).send(['this', 'is', 'express']);
   }
 
