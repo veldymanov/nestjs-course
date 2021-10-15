@@ -11,13 +11,19 @@ import { EventsModule } from './events/events.module';
     CoffeesModule,
     TypeOrmModule.forRoot({
       type: 'postgres',
-      host: 'postgres_container',
+      host: 'postgres_container', // without docker 'localhost'
       port: 5432,
       username: 'postgres',
-      password: 'pass123',
+      password: 'pass123', // like in docker-compose.yml
       database: 'postgres',
+      // loads module automatically
       autoLoadEntities: true,
-      synchronize: true, // for development only
+      /*
+        Ensures that typeorm entoties will be synced with the DB every time we run the app.
+        Automatically generate SQL table from all calsses with the entity decorator and metadata they contain.
+        For development only!
+      **/
+      synchronize: true,
     }),
     EventsModule,
   ],

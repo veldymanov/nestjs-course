@@ -4,7 +4,7 @@ import { IsOptional, IsPositive } from 'class-validator';
 export class PaginationQueryDto {
   @IsOptional()
   @IsPositive()
-  // @Type(() => Number)
+  // @Type(() => Number) // Made in global validation pipe (main.ts)
   limit: number;
 
   @IsOptional()

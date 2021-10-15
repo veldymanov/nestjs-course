@@ -1,6 +1,8 @@
 import { Column, Entity, ManyToMany, PrimaryGeneratedColumn } from 'typeorm';
 import { Coffee } from './coffee.entity';
 
+
+// SQL table name => 'flavor'
 @Entity()
 export class Flavor {
   @PrimaryGeneratedColumn()
