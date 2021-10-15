@@ -22,7 +22,11 @@
     "test:watch:file": "npm run test:watch -- coffees.service",
     "test:cov": "jest --coverage",
     "test:debug": "node --inspect-brk -r tsconfig-paths/register -r ts-node/register node_modules/.bin/jest --runInBand",
-    "test:e2e": "jest --config ./test/jest-e2e.json"
+    "test:e2e": "jest --config ./test/jest-e2e.json",
+    "migration:manual:create": "npx typeorm migration:create -n CoffeeRefactor && npm run build",
+    "migration:generate": "npx typeorm migration:generate -n SchemaSync && npm run build",
+    "migration:run": "npx typeorm migration:run",
+    "migration:revert": "npx typeorm migration:revert"
   },
   "dependencies": {
     "@nestjs/common": "^7.6.15",
