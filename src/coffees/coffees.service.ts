@@ -1,4 +1,5 @@
 import {
+  Inject,
   // HttpException,
   // HttpStatus,
   Injectable,
@@ -8,6 +9,11 @@ import { InjectRepository } from '@nestjs/typeorm';
 import { PaginationQueryDto } from 'src/common/dto/pagination-query.dto';
 import { Event } from 'src/events/entities/event.entity';
 import { Connection, Repository } from 'typeorm';
+import {
+  COFFEE_BRANDS,
+  COFFEE_BRANDS_FACTORY,
+  COFFEE_BRANDS_FACTORY_ASYNC,
+} from './coffees.constants';
 
 import { CreateCoffeeDto } from './dto/create-coffee.dto';
 import { UpdateCoffeeDto } from './dto/update-coffee.dto';
@@ -23,7 +29,14 @@ export class CoffeesService {
     @InjectRepository(Flavor)
     private readonly flavorRepository: Repository<Flavor>,
     private readonly connection: Connection,
-  ) {}
+    @Inject(COFFEE_BRANDS) coffeeBrands: string[],
+    @Inject(COFFEE_BRANDS_FACTORY) coffeeBrandsFactory: string[],
+    @Inject(COFFEE_BRANDS_FACTORY_ASYNC) coffeeBrandsFactoryAsync: string[],
+  ) {
+    console.log('coffeeBrands', coffeeBrands);
+    console.log('coffeeBrandsFactory', coffeeBrandsFactory);
+    console.log('coffeeBrandsFactoryAsync', coffeeBrandsFactoryAsync);
+  }
 
   async findAll(paginationQuery: PaginationQueryDto): Promise<Coffee[]> {
     return await this.coffeeRepository.find({

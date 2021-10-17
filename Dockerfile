@@ -1,7 +1,6 @@
 FROM node:16.3-alpine AS development
 WORKDIR /usr/src/app
 COPY package*.json ./
-# install only devDependecies
 RUN npm install
 COPY . .
 RUN npm run build

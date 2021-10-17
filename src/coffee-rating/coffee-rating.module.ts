@@ -1,4 +1,18 @@
 import { Module } from '@nestjs/common';
+import { CoffeesModule } from 'src/coffees/coffees.module';
+// import { DatabaseModule } from 'src/database/database.module';
+import { CoffeeRatingService } from './coffee-rating.service';
 
-@Module({})
+@Module({
+  imports: [
+    // DatabaseModule.register({
+    //   type: 'postgres',
+    //   host: 'postgres_container', // without docker 'localhost'
+    //   port: 5432,
+    //   password: 'pass123', // like in docker-compose.yml
+    // }),
+    CoffeesModule,
+  ],
+  providers: [CoffeeRatingService],
+})
 export class CoffeeRatingModule {}
