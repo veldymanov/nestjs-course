@@ -5,6 +5,7 @@ import { AppController } from './app.controller';
 import { AppService } from './app.service';
 import { CoffeesModule } from './coffees/coffees.module';
 import { EventsModule } from './events/events.module';
+import { CoffeeRatingModule } from './coffee-rating/coffee-rating.module';
 
 @Module({
   imports: [
@@ -26,6 +27,7 @@ import { EventsModule } from './events/events.module';
       synchronize: true,
     }),
     EventsModule,
+    CoffeeRatingModule,
   ],
   controllers: [AppController],
   providers: [AppService],
