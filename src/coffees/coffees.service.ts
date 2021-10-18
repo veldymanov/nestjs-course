@@ -5,7 +5,7 @@ import {
   Injectable,
   NotFoundException,
 } from '@nestjs/common';
-import { ConfigService } from '@nestjs/config';
+import { ConfigType } from '@nestjs/config';
 import { InjectRepository } from '@nestjs/typeorm';
 import { PaginationQueryDto } from 'src/common/dto/pagination-query.dto';
 import { Event } from 'src/events/entities/event.entity';
@@ -15,6 +15,7 @@ import {
   COFFEE_BRANDS_FACTORY,
   COFFEE_BRANDS_FACTORY_ASYNC,
 } from './coffees.constants';
+import coffeesConfig from './config/coffees.config';
 
 import { CreateCoffeeDto } from './dto/create-coffee.dto';
 import { UpdateCoffeeDto } from './dto/update-coffee.dto';
@@ -33,14 +34,14 @@ export class CoffeesService {
     @Inject(COFFEE_BRANDS) coffeeBrands: string[],
     @Inject(COFFEE_BRANDS_FACTORY) coffeeBrandsFactory: string[],
     @Inject(COFFEE_BRANDS_FACTORY_ASYNC) coffeeBrandsFactoryAsync: string[],
-    private readonly configService: ConfigService,
+    @Inject(coffeesConfig.KEY)
+    private readonly coffeesConfiguration: ConfigType<typeof coffeesConfig>,
   ) {
     console.log('coffeeBrands', coffeeBrands);
     console.log('coffeeBrandsFactory', coffeeBrandsFactory);
     console.log('coffeeBrandsFactoryAsync', coffeeBrandsFactoryAsync);
 
-    const databaseHost = configService.get<string>('DB_HOST', 'localhost');
-    console.log('databaseHost ', databaseHost);
+    console.log('coffeesConfiguration ', this.coffeesConfiguration.foo);
   }
 
   async findAll(paginationQuery: PaginationQueryDto): Promise<Coffee[]> {

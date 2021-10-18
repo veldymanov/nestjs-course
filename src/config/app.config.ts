@@ -1,4 +1,5 @@
 // for projects bigger than a middle
+// see usage in coffee.service.ts
 
 export default () => ({
   environment: process.env.NODE_ENV || 'development',
