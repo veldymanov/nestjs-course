@@ -42,7 +42,7 @@ import * as Joi from '@hapi/joi';
     }),
     EventsModule,
     CoffeeRatingModule,
-    DatabaseModule,
+    DatabaseModule, // is not used
   ],
   controllers: [AppController],
   providers: [AppService],

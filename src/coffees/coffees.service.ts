@@ -39,8 +39,8 @@ export class CoffeesService {
     console.log('coffeeBrandsFactory', coffeeBrandsFactory);
     console.log('coffeeBrandsFactoryAsync', coffeeBrandsFactoryAsync);
 
-    // const databaseHost = configService.get<string>('DB_HOST');
-    // console.log('databaseHost ', databaseHost);
+    const databaseHost = configService.get<string>('DB_HOST', 'localhost');
+    console.log('databaseHost ', databaseHost);
   }
 
   async findAll(paginationQuery: PaginationQueryDto): Promise<Coffee[]> {
