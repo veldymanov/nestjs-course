@@ -29,7 +29,9 @@
     "migration:revert": "npx typeorm migration:revert"
   },
   "dependencies": {
+    "@hapi/joi": "^17.1.1",
     "@nestjs/common": "^7.6.15",
+    "@nestjs/config": "^1.0.2",
     "@nestjs/core": "^7.6.15",
     "@nestjs/mapped-types": "^0.4.1",
     "@nestjs/platform-express": "^7.6.15",
@@ -47,6 +49,7 @@
     "@nestjs/schematics": "^7.3.0",
     "@nestjs/testing": "^7.6.15",
     "@types/express": "^4.17.11",
+    "@types/hapi__joi": "^17.1.7",
     "@types/jest": "^26.0.22",
     "@types/node": "^14.14.36",
     "@types/supertest": "^2.0.10",
@@ -71,7 +74,9 @@
       "ts"
     ],
     "rootDir": "./",
-    "modulePaths": ["<rootDir>"],
+    "modulePaths": [
+      "<rootDir>"
+    ],
     "testRegex": ".*\\.spec\\.ts$",
     "transform": {
       "^.+\\.(t|j)s$": "ts-jest"
