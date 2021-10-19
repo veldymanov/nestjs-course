@@ -21,7 +21,6 @@ import { CreateCoffeeDto } from './dto/create-coffee.dto';
 import { UpdateCoffeeDto } from './dto/update-coffee.dto';
 import { Coffee } from './entities/coffee.entity';
 
-
 // @UsePipes(ValidationPipe)
 @Controller('coffees')
 export class CoffeesController {
@@ -38,8 +37,8 @@ export class CoffeesController {
   }
 
   @Put('recommend/:id')
-  async recommendCoffee(@Param('id') id: string): Promise<void> {
-    return await this.coffesService.recommendCoffee(id);
+  recommendCoffee(@Param('id') id: string): Promise<Coffee> {
+    return this.coffesService.recommendCoffee(id);
   }
 
   /**
@@ -51,30 +50,31 @@ export class CoffeesController {
   async findAll(
     @Query() paginationQuery: PaginationQueryDto,
   ): Promise<Coffee[]> {
-    return await this.coffesService.findAll(paginationQuery);
+    await new Promise((resolve) => setTimeout(resolve, 4000));
+    return this.coffesService.findAll(paginationQuery);
   }
 
   @Get(':id')
-  async findOne(@Param() params): Promise<Coffee> {
-    return await this.coffesService.findOne(params.id);
+  findOne(@Param() params): Promise<Coffee> {
+    return this.coffesService.findOne(params.id);
   }
 
   @Post()
   @HttpCode(HttpStatus.ACCEPTED)
-  async create(@Body() createCoffeeDto: CreateCoffeeDto): Promise<Coffee> {
-    return await this.coffesService.create(createCoffeeDto);
+  create(@Body() createCoffeeDto: CreateCoffeeDto): Promise<Coffee> {
+    return this.coffesService.create(createCoffeeDto);
   }
 
   @Patch(':id')
-  async update(
+  update(
     @Param('id') id: string,
     @Body(ValidationPipe) updateCoffeeDto: UpdateCoffeeDto,
   ): Promise<Coffee> {
-    return await this.coffesService.update(id, updateCoffeeDto);
+    return this.coffesService.update(id, updateCoffeeDto);
   }
 
   @Delete(':id')
-  async remove(@Param('id') id: string): Promise<Coffee> {
-    return await this.coffesService.remove(id);
+  remove(@Param('id') id: string): Promise<Coffee> {
+    return this.coffesService.remove(id);
   }
 }

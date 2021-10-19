@@ -103,7 +103,7 @@ export class CoffeesService {
     return await this.coffeeRepository.remove(coffee);
   }
 
-  async recommendCoffee(id: string): Promise<void> {
+  async recommendCoffee(id: string): Promise<Coffee> {
     const coffee = await this.findOne(id);
 
     const queryRunner = this.connection.createQueryRunner();
@@ -119,10 +119,11 @@ export class CoffeesService {
       recommendEvent.type = 'coffee';
       recommendEvent.payload = { coffeeId: coffee.id };
 
-      await queryRunner.manager.save(coffee);
+      const recommCoffee = await queryRunner.manager.save(coffee);
       await queryRunner.manager.save(recommendEvent);
-
       await queryRunner.commitTransaction();
+
+      return recommCoffee;
     } catch (err) {
       await queryRunner.rollbackTransaction();
     } finally {
