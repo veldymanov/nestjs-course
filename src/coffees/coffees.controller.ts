@@ -16,6 +16,7 @@ import {
 } from '@nestjs/common';
 import { Public } from 'src/common/decorators/public.decorator';
 import { PaginationQueryDto } from 'src/common/dto/pagination-query.dto';
+import { ParseIntPipe } from 'src/common/pipes/parse-int.pipe';
 import { CoffeesService } from './coffees.service';
 import { CreateCoffeeDto } from './dto/create-coffee.dto';
 import { UpdateCoffeeDto } from './dto/update-coffee.dto';
@@ -50,13 +51,13 @@ export class CoffeesController {
   async findAll(
     @Query() paginationQuery: PaginationQueryDto,
   ): Promise<Coffee[]> {
-    await new Promise((resolve) => setTimeout(resolve, 4000));
+    // await new Promise((resolve) => setTimeout(resolve, 4000));
     return this.coffesService.findAll(paginationQuery);
   }
 
   @Get(':id')
-  findOne(@Param() params): Promise<Coffee> {
-    return this.coffesService.findOne(params.id);
+  findOne(@Param('id', ParseIntPipe) id: string): Promise<Coffee> {
+    return this.coffesService.findOne(id);
   }
 
   @Post()
