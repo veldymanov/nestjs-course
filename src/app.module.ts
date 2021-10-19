@@ -14,6 +14,7 @@ import { CoffeeRatingModule } from './coffee-rating/coffee-rating.module';
 import { DatabaseModule } from './database/database.module';
 import * as Joi from '@hapi/joi';
 import appConfig from './config/app.config';
+import { CommonModule } from './common/common.module';
 
 
 @Module({
@@ -48,6 +49,7 @@ import appConfig from './config/app.config';
         DB_PASSWORD: Joi.required(),
       }),
     }),
+    CommonModule,
     CoffeesModule,
     EventsModule,
     CoffeeRatingModule,
