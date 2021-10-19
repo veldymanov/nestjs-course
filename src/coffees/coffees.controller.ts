@@ -11,6 +11,8 @@ import {
   Put,
   Query,
   Res,
+  UsePipes,
+  ValidationPipe,
 } from '@nestjs/common';
 import { PaginationQueryDto } from 'src/common/dto/pagination-query.dto';
 import { CoffeesService } from './coffees.service';
@@ -18,6 +20,7 @@ import { CreateCoffeeDto } from './dto/create-coffee.dto';
 import { UpdateCoffeeDto } from './dto/update-coffee.dto';
 import { Coffee } from './entities/coffee.entity';
 
+// @UsePipes(ValidationPipe)
 @Controller('coffees')
 export class CoffeesController {
   constructor(private readonly coffesService: CoffeesService) {}
@@ -40,7 +43,7 @@ export class CoffeesController {
   /**
    * CRUD
    */
-
+  @UsePipes(ValidationPipe)
   @Get()
   async findAll(
     @Query() paginationQuery: PaginationQueryDto,
@@ -62,7 +65,7 @@ export class CoffeesController {
   @Patch(':id')
   async update(
     @Param('id') id: string,
-    @Body() updateCoffeeDto: UpdateCoffeeDto,
+    @Body(ValidationPipe) updateCoffeeDto: UpdateCoffeeDto,
   ): Promise<Coffee> {
     return await this.coffesService.update(id, updateCoffeeDto);
   }
