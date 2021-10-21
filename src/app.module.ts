@@ -16,7 +16,6 @@ import * as Joi from '@hapi/joi';
 import appConfig from './config/app.config';
 import { CommonModule } from './common/common.module';
 
-
 @Module({
   imports: [
     TypeOrmModule.forRootAsync({
