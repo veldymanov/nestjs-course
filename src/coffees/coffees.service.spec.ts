@@ -2,7 +2,13 @@ import { NotFoundException } from '@nestjs/common';
 import { Test, TestingModule } from '@nestjs/testing';
 import { getRepositoryToken } from '@nestjs/typeorm';
 import { Connection, Repository } from 'typeorm';
+import {
+  COFFEE_BRANDS,
+  COFFEE_BRANDS_FACTORY,
+  COFFEE_BRANDS_FACTORY_ASYNC,
+} from './coffees.constants';
 import { CoffeesService } from './coffees.service';
+import coffeesConfig from './config/coffees.config';
 import { Coffee } from './entities/coffee.entity';
 import { Flavor } from './entities/flavor.entity';
 
@@ -29,6 +35,24 @@ describe('CoffeesService', () => {
           provide: getRepositoryToken(Flavor),
           useValue: createMockRepository(),
         },
+        {
+          provide: COFFEE_BRANDS,
+          useValue: ['buddy brew', 'nescafe'],
+        },
+        {
+          provide: COFFEE_BRANDS_FACTORY,
+          useValue: ['buddy brew factory', 'nescafe factory'],
+        },
+        {
+          provide: COFFEE_BRANDS_FACTORY_ASYNC,
+          useValue: ['buddy brew factory async', 'nescafe factory async'],
+        },
+        {
+          provide: coffeesConfig.KEY,
+          useValue: {
+            foo: 'bar',
+          },
+        },
       ],
     }).compile();
 
@@ -41,8 +65,8 @@ describe('CoffeesService', () => {
   });
 
   describe('findOne', () => {
-    describe('when cofee with ID exists', () => {
-      it('should return cofee object', async () => {
+    describe('when coffee with ID exists', () => {
+      it('should return coffee object', async () => {
         const coffeeId = '1';
         const expectedCofee = {};
 

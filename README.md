@@ -86,6 +86,7 @@ $ npx typeorm migration:revert
 ```bash
 # unit tests
 $ npm run test
+$ npm run test:watch -- coffees.service
 
 # e2e tests
 $ npm run test:e2e
