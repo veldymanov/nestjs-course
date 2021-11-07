@@ -89,7 +89,11 @@ $ npm run test
 $ npm run test:watch -- coffees.service
 
 # e2e tests
-$ npm run test:e2e
+$ npm run test:e2e:run
+"test:e2e": "jest --config ./test/jest-e2e.json"
+"test:e2e": "jest --config ./test/jest-e2e.json -- coffees"
+
+"posttest:e2e": "docker compose stop app_e2e && docker compose rm -f app_e2e",
 
 # test coverage
 $ npm run test:cov

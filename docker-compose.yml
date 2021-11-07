@@ -14,7 +14,7 @@
 version: '3.8'
 
 services:
-  dev:
+  app_dev:
     container_name: nestjs_course_dev
     build:
       context: .
@@ -44,7 +44,7 @@ services:
       POSTGRES_DB: ${DB_NAME}
       PG_DATA: /var/lib/postgresql/data
     ports:
-      - 5432:5432
+      - ${DB_PORT}:${DB_PORT}
     volumes:
       - pgdata:/var/lib/postgresql/data
 networks:

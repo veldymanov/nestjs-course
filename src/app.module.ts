@@ -23,9 +23,9 @@ import { CommonModule } from './common/common.module';
         type: 'postgres',
         database: process.env.DB_NAME,
         username: process.env.DB_USER,
-        host: process.env.DB_HOST, // without docker 'localhost'
+        host: process.env.DB_HOST, // without docker 'localhost',
         port: +process.env.DB_PORT,
-        password: process.env.DB_PASSWORD, // like in docker-compose.yml
+        password: process.env.DB_PASSWORD,
         // loads module automatically
         autoLoadEntities: true,
         /*

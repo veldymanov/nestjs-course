@@ -1,0 +1,39 @@
+version: '3.8'
+
+services:
+  app_e2e:
+    container_name: nestjs_course_e2e
+    build:
+      context: .
+      target: development
+    volumes:
+      - .:/usr/src/app
+      - /usr/src/app/node_modules
+    ports:
+      - 3500:${SERVER_PORT}
+    command: npm run test:e2e
+    env_file:
+      - .env.e2e
+    networks:
+      - webnet
+    depends_on:
+      - postgres_e2e
+  postgres_e2e:
+    container_name: postgres_container_e2e
+    image: postgres:13.3
+    restart: always
+    networks:
+      - webnet
+    environment:
+      POSTGRES_PASSWORD: ${DB_PASSWORD}
+      POSTGRES_USER: ${DB_USER}
+      POSTGRES_DB: ${DB_NAME}
+      PG_DATA: /var/lib/postgresql/datae2e
+    ports:
+      - 5433:${DB_PORT}
+    volumes:
+      - pgdatae2e:/var/lib/postgresql/datae2e
+networks:
+  webnet:
+volumes:
+  pgdatae2e:
