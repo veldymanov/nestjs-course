@@ -11,7 +11,7 @@
 #       POSTGRES_PASSWORD: pass123
 #       # POSTGRES_DB: test_db
 
-version: '3.8'
+version: '3.9'
 
 services:
   app_dev:
