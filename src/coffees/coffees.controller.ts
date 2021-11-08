@@ -68,7 +68,7 @@ export class CoffeesController {
   }
 
   @Post()
-  @HttpCode(HttpStatus.ACCEPTED)
+  @HttpCode(HttpStatus.CREATED)
   create(@Body() createCoffeeDto: CreateCoffeeDto): Promise<Coffee> {
     return this.coffesService.create(createCoffeeDto);
   }

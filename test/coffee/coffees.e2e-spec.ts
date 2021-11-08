@@ -1,9 +1,17 @@
 import { Test, TestingModule } from '@nestjs/testing';
-import { INestApplication } from '@nestjs/common';
+import { HttpStatus, INestApplication, ValidationPipe } from '@nestjs/common';
+import * as request from 'supertest';
 import { CoffeesModule } from '../../src/coffees/coffees.module';
 import { TypeOrmModule } from '@nestjs/typeorm';
+import { CreateCoffeeDto } from 'src/coffees/dto/create-coffee.dto';
 
 describe('[Feature] Coffees - /coffees', () => {
+  const coffee = {
+    name: 'Shipwreck Roast',
+    brand: 'Buddy Brew',
+    flavors: ['chocolate', 'vanilla'],
+  };
+
   let app: INestApplication;
 
   beforeAll(async () => {
@@ -24,6 +32,16 @@ describe('[Feature] Coffees - /coffees', () => {
     }).compile();
 
     app = moduleFixture.createNestApplication();
+    app.useGlobalPipes(
+      new ValidationPipe({
+        whitelist: true,
+        forbidNonWhitelisted: true,
+        transform: true,
+        transformOptions: {
+          enableImplicitConversion: true,
+        },
+      }),
+    );
     await app.init();
   });
 
@@ -31,14 +49,37 @@ describe('[Feature] Coffees - /coffees', () => {
     await app.close();
   });
 
-  it.todo('Create [POST /]');
-  // it.todo('Get All [Get /]', () => {
-  //   return request(app.getHttpServer())
-  //     .get('/')
-  //     .set('Authorization', process.env.API_KEY)
-  //     .expect(200)
-  //     .expect('Hello Nest 1313!');
-  // });
+  it('Create [POST /]', () => {
+    return request(app.getHttpServer())
+      .post('/coffees')
+      .set('Authorization', process.env.API_KEY)
+      .send(coffee as CreateCoffeeDto)
+      .expect(HttpStatus.CREATED)
+      .then(({ body }) => {
+        const expectedCoffee = jasmine.objectContaining({
+          ...coffee,
+          flavors: jasmine.arrayContaining(
+            coffee.flavors.map((name) => jasmine.objectContaining({ name })),
+          ),
+        });
+
+        expect(body).toEqual(expectedCoffee);
+      });
+  });
+
+  it('Get All [Get /coffees]', () => {
+    return request(app.getHttpServer())
+      .get('/coffees')
+      .set('Authorization', process.env.API_KEY)
+      .expect(HttpStatus.OK)
+      .then(({ body }) => {
+
+        console.log(body);
+
+        expect(true).toEqual(true);
+      });
+  });
+
   it.todo('Get one [Get /:id]');
   it.todo('Update one [Patch /:id]');
   it.todo('Delete one [DELETE /:id]');
